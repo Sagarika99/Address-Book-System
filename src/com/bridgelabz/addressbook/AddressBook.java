@@ -92,11 +92,27 @@ public class AddressBook{
                 System.out.println("Enter phone number");
                 details[j].phoneNum = sc.next();
         	}
-    	}
-
-    	
+    	}   	
     }
 
+    public void deleteDetails() {
+    	Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the First Name of user to be deleted: ");
+        String firstname = sc.nextLine();
+        for (int i = 0; i < details.length; i++) {
+            if (firstname.equals(details[i].firstName)) {
+            	details[i].firstName = null;
+            	details[i].lastName = null;
+            	details[i].address = null;
+            	details[i].city = null;
+            	details[i].state = null;
+            	details[i].zip = 0;
+            	details[i].phoneNum = null;
+            }
+        }
+        	
+    }
+    
 	public static void main(String[] args) {
 		AddressBook bookBuilder = new AddressBook();
 		Scanner sc = new Scanner(System.in);
@@ -114,7 +130,8 @@ public class AddressBook{
 					bookBuilder.editDetails();
 					break;
 				case 3:
-					
+					bookBuilder.deleteDetails();
+					break;
 				case 4:
 					bookBuilder.PrintPersonDetails();
 					break;
