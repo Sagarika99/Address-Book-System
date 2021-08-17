@@ -130,6 +130,7 @@ public class AddressBook{
 					break;
 				case 3:
 					bookBuilder.deleteDetails();
+					break;
 				case 4:
 					bookBuilder.PrintPersonDetails();
 					break;
