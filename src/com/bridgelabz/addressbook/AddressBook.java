@@ -30,6 +30,7 @@ public class AddressBook{
 
     public void addContact() {
     	Scanner sc = new Scanner(System.in);
+    	//for printing Multiple enteries
     	System.out.println("Enter number of entries: ");
     	int record = sc.nextInt();
     	details = new contactBook[record];
@@ -91,6 +92,7 @@ public class AddressBook{
                 System.out.println("Enter phone number");
                 details[j].phoneNum = sc.next();
         	}
+
     	}
     }
     	
@@ -109,9 +111,8 @@ public class AddressBook{
             	details[i].phoneNum = null;
             }
         }
-        	
-    }
-
+     } 
+    
 	public static void main(String[] args) {
 		AddressBook bookBuilder = new AddressBook();
 		Scanner sc = new Scanner(System.in);
