@@ -37,19 +37,20 @@ public class AddressBook{
     	for (int i=0; i<record; i++) {
     		System.out.println(i+1);
     		System.out.println("Enter First name: ");
-        	String firstName = sc.next();
+    		String dummy = sc.nextLine();
+        	String firstName = sc.nextLine();
         	System.out.println("Enter Last name: ");
-        	String lastName = sc.next();
+        	String lastName = sc.nextLine();
         	System.out.println("Enter address: ");
-        	String address = sc.next();
+        	String address = sc.nextLine();
         	System.out.println("Enter city: ");
-        	String city = sc.next();
+        	String city = sc.nextLine();
         	System.out.println("Enter state: ");
-        	String state = sc.next();
+        	String state = sc.nextLine();
         	System.out.println("Enter zip code: ");
         	int zip = sc.nextInt();
         	System.out.println("Enter phone number: ");
-        	String phoneNum = sc.next();
+        	String phoneNum = sc.nextLine();
         	
         	details[i] = new contactBook (firstName, lastName, address, city, state, zip, phoneNum );
         	//book.PrintPersonDetails();
