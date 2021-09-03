@@ -13,8 +13,6 @@ public class AddressBookRunner {
 	
 
 	public void addAddressBook() {
-		System.out.println("Enter name of Address Book: ");
-		String name = sc.next();
 		addressBook.add(contactDetails = new ArrayList<contactBook>());
 	}
 	
@@ -23,7 +21,6 @@ public class AddressBookRunner {
 	}
 	
 	public void printAddressBook() {
-		System.out.println("Enter index of Address Book: ");
 		int index = sc.nextInt();
 		for (int i=0 ; i<addressBook.get(index).size() ; i++) {
             System.out.println((addressBook.get(index)).get(i).firstName);
@@ -35,28 +32,42 @@ public class AddressBookRunner {
             System.out.println((addressBook.get(index)).get(i).phoneNum);
 		}
 	}
+	public int checkDuplicate(String firstname) {
+	  	for (int i=0; i<contactDetails.size(); i++) {
+			if (firstname.equals(contactDetails.get(i).firstName)){
+	       		return 1;
+	       	}
+	  	}
+	  	return 0;
+	}
 	
     public void addContact() {
+     
     	System.out.println("Enter First name: ");
-    	String dummy = sc.next();
-       	String firstName = sc.nextLine();
+    	//String dummy = sc.next();
+       	String firstName = sc.next();
        	System.out.println("Enter Last name: ");
-       	String lastName = sc.nextLine();
+       	String lastName = sc.next();
        	System.out.println("Enter address: ");
-       	String address = sc.nextLine();
+       	String address = sc.next();
        	System.out.println("Enter city: ");
-       	String city = sc.nextLine();
+       	String city = sc.next();
        	System.out.println("Enter state: ");
-       	String state = sc.nextLine();
+       	String state = sc.next();
        	System.out.println("Enter zip code: ");
        	int zip = sc.nextInt();
        	System.out.println("Enter phone number: ");
-       	String phoneNum = sc.next();        	
-       
-       	contactBook addressBookCollections = new contactBook (firstName, lastName, address, city, state, zip, phoneNum );
-       	contactDetails.add(addressBookCollections);
-
-}
+       	String phoneNum = sc.next();     
+       	
+       	if (checkDuplicate(firstName) == 1) {
+       		System.out.println("Duplicate Entry");
+       		contactDetails.remove(firstName);
+       	}
+       	else {
+       		contactBook addressBookCollections = new contactBook (firstName, lastName, address, city, state, zip, phoneNum );
+		    contactDetails.add(addressBookCollections);
+		}
+    }
     	
     public void PrintPersonDetails(){
     	for (int i=0; i<contactDetails.size(); i++) {
@@ -72,19 +83,19 @@ public class AddressBookRunner {
     	for (int j=0; j < contactDetails.size(); j++) {
         	if(name.equals(contactDetails.get(j).firstName)){
                 System.out.println("Enter First name");
-                contactDetails.get(j).firstName = sc.nextLine();
+                contactDetails.get(j).firstName = sc.next();
                 System.out.println("Enter Last name");
-                contactDetails.get(j).lastName = sc.nextLine();
+                contactDetails.get(j).lastName = sc.next();
                 System.out.println("Enter address");
-                contactDetails.get(j).address = sc.nextLine();
+                contactDetails.get(j).address = sc.next();
                 System.out.println("Enter city");
-                contactDetails.get(j).city = sc.nextLine();
+                contactDetails.get(j).city = sc.next();
                 System.out.println("Enter state");
-                contactDetails.get(j).state = sc.nextLine();
+                contactDetails.get(j).state = sc.next();
                 System.out.println("Enter zip code");
                 contactDetails.get(j).zip = sc.nextInt();
                 System.out.println("Enter phone number");
-                contactDetails.get(j).phoneNum = sc.nextLine();
+                contactDetails.get(j).phoneNum = sc.next();
         	}
 
     	}
