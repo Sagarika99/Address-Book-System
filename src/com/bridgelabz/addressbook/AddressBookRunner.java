@@ -1,26 +1,24 @@
 package com.bridgelabz.addressbook;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class AddressBookRunner {
 
 	Scanner sc = new Scanner(System.in);
 	int record = 0;
-	ArrayList<contactBook> contactDetails;
-	ArrayList<ArrayList<contactBook>> addressBook = new ArrayList<ArrayList<contactBook>>();
-	
+	public ArrayList<contactBook> contactDetails;
+	public ArrayList<ArrayList<contactBook>> addressBook = new ArrayList<ArrayList<contactBook>>();
+	public HashMap<String, String> personInCity = new HashMap<String, String>();
+	public HashMap<String, String> personInState = new HashMap<String, String>();
 
 	public void addAddressBook() {
 		addressBook.add(contactDetails = new ArrayList<contactBook>());
 	}
-	
-	public void totalAddressBook() {
-		System.out.println(addressBook.size());   
-	}
-	
+	 
 	public void printAddressBook() {
-		System.out.println("Enter index number");
+		System.out.println("Enter index number from: "+addressBook.size());
 		int index = sc.nextInt();
 		for (int i=0 ; i<addressBook.get(index).size() ; i++) {
             System.out.println((addressBook.get(index)).get(i).firstName);
@@ -66,6 +64,9 @@ public class AddressBookRunner {
        	else {
        		contactBook addressBookCollections = new contactBook (firstName, lastName, address, city, state, zip, phoneNum );
 		    contactDetails.add(addressBookCollections);
+		    String value = firstName+ " " +lastName;
+		    personInCity.put(value, city);
+		    personInState.put(value, state);
 		}
     }
     
@@ -80,6 +81,22 @@ public class AddressBookRunner {
         		}
     		}
    		
+    	}
+    }
+    
+    public void viewPersonByCityState() {
+    	Scanner sc = new Scanner(System.in);
+    	System.out.println("View person by 1.City 2.State: ");
+    	int choice = sc.nextInt();
+    	if (choice == 1) {
+    		for (String i : personInCity.keySet()) {
+    			System.out.println(i + " lives in city " +personInCity.get(i));
+    		}
+    	}
+    	else {
+    		for (String i : personInState.keySet()) {
+    			System.out.println(i + " lives in city " +personInState.get(i));
+    		}
     	}
     }
     	
@@ -110,6 +127,10 @@ public class AddressBookRunner {
                 contactDetails.get(j).zip = sc.nextInt();
                 System.out.println("Enter phone number");
                 contactDetails.get(j).phoneNum = sc.next();
+                
+
+				personInCity.put(contactDetails.get(j).firstName+ " " +contactDetails.get(j).lastName, contactDetails.get(j).city);
+    		    personInState.put(contactDetails.get(j).firstName+ " " +contactDetails.get(j).lastName, contactDetails.get(j).state);
         	}
 
     	}
@@ -133,7 +154,7 @@ public class AddressBookRunner {
 		int flag=0;
 		while (flag==0) {
 			System.out.println("Choose an option: ");
-			System.out.println("1. Add a contact ; 2. Edit a contact ; 3. Delete a contact ; 4. Print all contacts 5. Add Another Address Book 6. Print Address Book 7. Search By State 8. Total Address Book 9. Exit: ");
+			System.out.println("1. Add a contact ; 2. Edit a contact ; 3. Delete a contact ; 4. Print all contacts 5. Add Another Address Book 6. Print Address Book 7. Search By State 8. View persos in city or state 9. Exit: ");
 			int i = sc.nextInt();
 			
 			switch(i) {
@@ -159,7 +180,7 @@ public class AddressBookRunner {
 					bookBuilder.searchByState();
 					break;
 				case 8:
-					bookBuilder.printAddressBook();
+					bookBuilder.viewPersonByCityState();
 					break;
 				case 9:
 					flag = 1;
