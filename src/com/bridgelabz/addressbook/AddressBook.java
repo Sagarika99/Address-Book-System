@@ -1,8 +1,5 @@
 package com.bridgelabz.addressbook;
 
-import java.util.LinkedList;
-import java.util.Scanner;
-
 class contactBook{
 	String firstName;
 	String lastName;
@@ -17,8 +14,8 @@ class contactBook{
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
-		this.state = city;
-		this.city = state;
+		this.city = city;
+		this.state = state;
 		this.zip = zip;
 		this.phoneNum = phoneNum;
 	}

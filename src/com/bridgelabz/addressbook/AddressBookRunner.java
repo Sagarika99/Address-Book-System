@@ -1,7 +1,6 @@
 package com.bridgelabz.addressbook;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 public class AddressBookRunner {
@@ -21,24 +20,25 @@ public class AddressBookRunner {
 	}
 	
 	public void printAddressBook() {
+		System.out.println("Enter index number");
 		int index = sc.nextInt();
 		for (int i=0 ; i<addressBook.get(index).size() ; i++) {
             System.out.println((addressBook.get(index)).get(i).firstName);
             System.out.println((addressBook.get(index)).get(i).lastName);
             System.out.println((addressBook.get(index)).get(i).address);
-            System.out.println((addressBook.get(index)).get(i).state);
             System.out.println((addressBook.get(index)).get(i).city);
+            System.out.println((addressBook.get(index)).get(i).state);
             System.out.println((addressBook.get(index)).get(i).zip);
             System.out.println((addressBook.get(index)).get(i).phoneNum);
 		}
 	}
-	public int checkDuplicate(String firstname) {
+	public boolean checkDuplicate(String firstname) {
 	  	for (int i=0; i<contactDetails.size(); i++) {
 			if (firstname.equals(contactDetails.get(i).firstName)){
-	       		return 1;
+	       		return true;
 	       	}
 	  	}
-	  	return 0;
+	  	return false;
 	}
 	
     public void addContact() {
@@ -59,7 +59,7 @@ public class AddressBookRunner {
        	System.out.println("Enter phone number: ");
        	String phoneNum = sc.next();     
        	
-       	if (checkDuplicate(firstName) == 1) {
+       	if (checkDuplicate(firstName) == true) {
        		System.out.println("Duplicate Entry");
        		contactDetails.remove(firstName);
        	}
@@ -67,6 +67,20 @@ public class AddressBookRunner {
        		contactBook addressBookCollections = new contactBook (firstName, lastName, address, city, state, zip, phoneNum );
 		    contactDetails.add(addressBookCollections);
 		}
+    }
+    
+    public void searchByState() {
+    	System.out.println("Enter city you want to search: ");
+    	//String dummy = sc.nextLine();
+    	String citySearch = sc.next();
+    	for (int j=0; j<addressBook.size(); j++) {
+    		for (int i=0; i<addressBook.get(j).size(); i++) {
+    			if ((addressBook.get(j).get(i).city.equals(citySearch))) {
+        			System.out.println(addressBook.get(j).get(i));
+        		}
+    		}
+   		
+    	}
     }
     	
     public void PrintPersonDetails(){
@@ -119,7 +133,7 @@ public class AddressBookRunner {
 		int flag=0;
 		while (flag==0) {
 			System.out.println("Choose an option: ");
-			System.out.println("1. Add a contact ; 2. Edit a contact ; 3. Delete a contact ; 4. Print all contacts 5. Add Another Address Book 6. Print Address Book 7. Show Number of Address Book 8. Exit: ");
+			System.out.println("1. Add a contact ; 2. Edit a contact ; 3. Delete a contact ; 4. Print all contacts 5. Add Another Address Book 6. Print Address Book 7. Search By State 8. Total Address Book 9. Exit: ");
 			int i = sc.nextInt();
 			
 			switch(i) {
@@ -142,9 +156,12 @@ public class AddressBookRunner {
 					bookBuilder.printAddressBook();
 					break;
 				case 7:
-					bookBuilder.totalAddressBook();
+					bookBuilder.searchByState();
 					break;
 				case 8:
+					bookBuilder.printAddressBook();
+					break;
+				case 9:
 					flag = 1;
 					break;
 			}
