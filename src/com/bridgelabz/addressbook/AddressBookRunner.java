@@ -99,6 +99,22 @@ public class AddressBookRunner {
     		}
     	}
     }
+    
+    public void countPersonInCity() {
+    	int count = 0;
+    	Scanner sc = new Scanner(System.in);
+    	System.out.println("Enter City Name: ");
+    	String cityName = sc.next();
+    	
+    	for (int j=0; j<addressBook.size(); j++) {
+    		for (int i=0; i<addressBook.get(j).size(); i++) {
+    			if ((addressBook.get(j).get(i).city.equals(cityName))) {
+        			count ++;
+        		}
+    		}
+    	}
+    	System.out.println(count);
+    }
     	
     public void PrintPersonDetails(){
     	for (int i=0; i<contactDetails.size(); i++) {
@@ -111,28 +127,29 @@ public class AddressBookRunner {
     	System.out.println("Enter the First Name: ");
     	String name = sc.next();
     	
-    	for (int j=0; j < contactDetails.size(); j++) {
-        	if(name.equals(contactDetails.get(j).firstName)){
-                System.out.println("Enter First name");
-                contactDetails.get(j).firstName = sc.next();
-                System.out.println("Enter Last name");
-                contactDetails.get(j).lastName = sc.next();
-                System.out.println("Enter address");
-                contactDetails.get(j).address = sc.next();
-                System.out.println("Enter city");
-                contactDetails.get(j).city = sc.next();
-                System.out.println("Enter state");
-                contactDetails.get(j).state = sc.next();
-                System.out.println("Enter zip code");
-                contactDetails.get(j).zip = sc.nextInt();
-                System.out.println("Enter phone number");
-                contactDetails.get(j).phoneNum = sc.next();
-                
+    	for (int j=0; j < addressBook.size(); j++) {
+    		for (int i=0; i<addressBook.get(j).size(); i++) {
+            	if(name.equals(addressBook.get(j).get(i).firstName)){
+                    System.out.println("Enter First name");
+                    contactDetails.get(j).firstName = sc.next();
+                    System.out.println("Enter Last name");
+                    contactDetails.get(j).lastName = sc.next();
+                    System.out.println("Enter address");
+                    contactDetails.get(j).address = sc.next();
+                    System.out.println("Enter city");
+                    contactDetails.get(j).city = sc.next();
+                    System.out.println("Enter state");
+                    contactDetails.get(j).state = sc.next();
+                    System.out.println("Enter zip code");
+                    contactDetails.get(j).zip = sc.nextInt();
+                    System.out.println("Enter phone number");
+                    contactDetails.get(j).phoneNum = sc.next();
+                    
 
-				personInCity.put(contactDetails.get(j).firstName+ " " +contactDetails.get(j).lastName, contactDetails.get(j).city);
-    		    personInState.put(contactDetails.get(j).firstName+ " " +contactDetails.get(j).lastName, contactDetails.get(j).state);
-        	}
-
+    				personInCity.put(contactDetails.get(j).firstName+ " " +contactDetails.get(j).lastName, contactDetails.get(j).city);
+        		    personInState.put(contactDetails.get(j).firstName+ " " +contactDetails.get(j).lastName, contactDetails.get(j).state);
+            	}
+    		}
     	}
     }
     	
@@ -140,9 +157,9 @@ public class AddressBookRunner {
     	Scanner sc = new Scanner(System.in);
         System.out.println("Enter the First Name of user to be deleted: ");
         String firstname = sc.nextLine();
-        for (int i = 0; i < contactDetails.size(); i++) {
-            if (firstname.equals(contactDetails.get(i).firstName)) {
-            	contactDetails.remove(i);
+        for (int j=0; j < addressBook.size(); j++) {
+    		for (int i=0; i<addressBook.get(j).size(); i++)  {
+    			addressBook.get(j).remove(i);
             }
         }
      } 
@@ -154,7 +171,7 @@ public class AddressBookRunner {
 		int flag=0;
 		while (flag==0) {
 			System.out.println("Choose an option: ");
-			System.out.println("1. Add a contact ; 2. Edit a contact ; 3. Delete a contact ; 4. Print all contacts 5. Add Another Address Book 6. Print Address Book 7. Search By State 8. View persos in city or state 9. Exit: ");
+			System.out.println("1. Add a contact ; 2. Edit a contact ; 3. Delete a contact ; 4. Print all contacts 5. Add Another Address Book 6. Print Address Book 7. Search By State 8. View persons in city or state 9. Count Person In City 10. Exit: ");
 			int i = sc.nextInt();
 			
 			switch(i) {
@@ -183,6 +200,9 @@ public class AddressBookRunner {
 					bookBuilder.viewPersonByCityState();
 					break;
 				case 9:
+					bookBuilder.countPersonInCity();
+					break;
+				case 10:
 					flag = 1;
 					break;
 			}
