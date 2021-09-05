@@ -2,7 +2,10 @@ package com.bridgelabz.addressbook;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class AddressBookRunner {
 
@@ -109,20 +112,20 @@ public class AddressBookRunner {
     	}
     }
     
-    public void countPersonInCity() {
-    	int count = 0;
-    	Scanner sc = new Scanner(System.in);
-    	System.out.println("Enter City Name: ");
-    	String cityName = sc.next();
-    	
-    	for (int j=0; j<addressBook.size(); j++) {
-    		for (int i=0; i<addressBook.get(j).size(); i++) {
-    			if ((addressBook.get(j).get(i).city.equals(cityName))) {
-        			count ++;
-        		}
-    		}
+    public void countPersonInCityState() {
+    	Scanner sc = new Scanner(System.in);    	
+    	System.out.println("Enter 1.City 2.State: ");
+    	int choice = sc.nextInt();
+    	if (choice == 1) {
+    		Map<String, Long> count = personInCity.values().stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    		count.keySet().stream().forEach(n -> 
+    		System.out.println(n +" : " + count.get(n)));
     	}
-    	System.out.println(count);
+    	else {
+       		Map<String, Long> count = personInState.values().stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    		count.keySet().stream().forEach(n -> 
+    		System.out.println(n +" : " + count.get(n)));
+    	}
     }
     	
     public void PrintPersonDetails(){
@@ -180,7 +183,7 @@ public class AddressBookRunner {
 		int flag=0;
 		while (flag==0) {
 			System.out.println("Choose an option: ");
-			System.out.println("1. Add a contact ; 2. Edit a contact ; 3. Delete a contact ; 4. Print all contacts 5. Add Another Address Book 6. Print Address Book 7. Search By City or State 8. View persons in city or state 9. Count Person In City 10. Exit: ");
+			System.out.println("1. Add a contact ; 2. Edit a contact ; 3. Delete a contact ; 4. Print all contacts 5. Add Another Address Book 6. Print Address Book 7. Search By City or State 8. View persons in city or state 9. Count Person In City or State 10. Exit: ");
 			int i = sc.nextInt();
 			
 			switch(i) {
@@ -209,7 +212,7 @@ public class AddressBookRunner {
 					bookBuilder.viewPersonByCityState();
 					break;
 				case 9:
-					bookBuilder.countPersonInCity();
+					bookBuilder.countPersonInCityState();
 					break;
 				case 10:
 					flag = 1;
