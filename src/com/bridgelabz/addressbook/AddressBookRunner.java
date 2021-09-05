@@ -100,14 +100,12 @@ public class AddressBookRunner {
     	System.out.println("View person by 1.City 2.State: ");
     	int choice = sc.nextInt();
     	if (choice == 1) {
-    		for (String i : personInCity.keySet()) {
-    			System.out.println(i + " lives in city " +personInCity.get(i));
+    		personInCity.keySet().stream().forEach(n -> 
+    		System.out.println(n + " lives in city " +personInCity.get(n)));
     		}
-    	}
     	else {
-    		for (String i : personInState.keySet()) {
-    			System.out.println(i + " lives in city " +personInState.get(i));
-    		}
+    		personInState.keySet().stream().forEach(n -> 
+    		System.out.println(n + " lives in city " +personInState.get(n)));
     	}
     }
     
