@@ -74,17 +74,24 @@ public class AddressBookRunner {
 		}
     }
     
-    public void searchByState() {
-    	System.out.println("Enter city you want to search: ");
-    	//String dummy = sc.nextLine();
-    	String citySearch = sc.next();
-    	for (int j=0; j<addressBook.size(); j++) {
-    		for (int i=0; i<addressBook.get(j).size(); i++) {
-    			if ((addressBook.get(j).get(i).city.equals(citySearch))) {
-        			System.out.println(addressBook.get(j).get(i));
-        		}
-    		}
-   		
+    public void searchByStateCity() {
+    	System.out.println("Enter city or state you want to search: 1.City 2.State");
+    	int choice = sc.nextInt();
+    	if (choice == 1) {
+    		System.out.println("Enter name of city:");
+    		String citySearch = sc.next();
+    		addressBook.stream().forEach(n -> { for (contactBook book : n) {
+    			if (book.city.equals(citySearch)) {
+    				System.out.println(book.firstName + " " + book.lastName + " from " + book.city);
+    			}}});
+    	}
+    	else {
+        	System.out.println("Enter name of state:");
+        	String stateSearch = sc.next();;
+    		addressBook.stream().forEach(n -> { for (contactBook book : n) {
+    			if (book.state.equals(stateSearch)) {
+    				System.out.println(book.firstName + " " + book.lastName + " from " + book.state);
+    			}}});
     	}
     }
     
@@ -175,7 +182,7 @@ public class AddressBookRunner {
 		int flag=0;
 		while (flag==0) {
 			System.out.println("Choose an option: ");
-			System.out.println("1. Add a contact ; 2. Edit a contact ; 3. Delete a contact ; 4. Print all contacts 5. Add Another Address Book 6. Print Address Book 7. Search By State 8. View persons in city or state 9. Count Person In City 10. Exit: ");
+			System.out.println("1. Add a contact ; 2. Edit a contact ; 3. Delete a contact ; 4. Print all contacts 5. Add Another Address Book 6. Print Address Book 7. Search By City or State 8. View persons in city or state 9. Count Person In City 10. Exit: ");
 			int i = sc.nextInt();
 			
 			switch(i) {
@@ -198,7 +205,7 @@ public class AddressBookRunner {
 					bookBuilder.printAddressBook();
 					break;
 				case 7:
-					bookBuilder.searchByState();
+					bookBuilder.searchByStateCity();
 					break;
 				case 8:
 					bookBuilder.viewPersonByCityState();
