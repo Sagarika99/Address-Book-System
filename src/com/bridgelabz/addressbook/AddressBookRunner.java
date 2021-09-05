@@ -30,12 +30,16 @@ public class AddressBookRunner {
             System.out.println((addressBook.get(index)).get(i).phoneNum);
 		}
 	}
+	
 	public boolean checkDuplicate(String firstname) {
-	  	for (int i=0; i<contactDetails.size(); i++) {
-			if (firstname.equals(contactDetails.get(i).firstName)){
-	       		return true;
-	       	}
+		ArrayList<String> duplicateArr = new ArrayList<String>();
+    	for (int j=0; j<addressBook.size(); j++) {
+    		for (int i=0; i<addressBook.get(j).size(); i++) {
+    			duplicateArr.add(addressBook.get(j).get(i).firstName);
+    		}
 	  	}
+    	if (duplicateArr.stream().anyMatch(n -> firstname.equals(n)))
+    		return true;
 	  	return false;
 	}
 	
