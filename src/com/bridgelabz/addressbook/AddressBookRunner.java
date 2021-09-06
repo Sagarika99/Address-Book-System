@@ -173,16 +173,46 @@ public class AddressBookRunner {
         String firstname = sc.nextLine();
         for (int j=0; j < addressBook.size(); j++) {
     		for (int i=0; i<addressBook.get(j).size(); i++)  {
-    			addressBook.get(j).remove(i);
+    			if (firstname.equals(addressBook.get(j).get(i).firstName)) {
+        			addressBook.get(j).remove(i);
+    			}
             }
         }
      } 
     
     public void sortByNames() {
     	for (int i=0; i<addressBook.size(); i++) {
-    		List sort = addressBook.get(i).stream().sorted((o1, o2) -> o1.firstName.compareTo(o2.firstName)).collect(Collectors.toList());
+    		List<contactBook> sort = addressBook.get(i).stream().sorted((o1, o2) -> o1.firstName.compareTo(o2.firstName)).collect(Collectors.toList());
     		sort.forEach(System.out::println);
     	}
+    }
+    
+    public void sortByCityStateZip() {
+    	 Scanner sc = new Scanner(System.in);
+         System.out.println("Enter to Sort 1.City 2.State 3.Zip");
+         int choice = sc.nextInt();
+         if (choice == 1) {
+         	for (int i=0; i<addressBook.size(); i++) {
+         		System.out.println("Address Book " +i);
+        		List sortCity = addressBook.get(i).stream().sorted((o1, o2) -> o1.city.compareTo(o2.city)).collect(Collectors.toList());
+        		sortCity.forEach(System.out::println);
+        		System.out.println();
+         	}
+         }
+         else if (choice == 2) {
+          	for (int i=0; i<addressBook.size(); i++) {
+          		System.out.println("Address Book"  +i);
+         		List sortState = addressBook.get(i).stream().sorted((o1, o2) -> o1.state.compareTo(o2.state)).collect(Collectors.toList());
+         		sortState.forEach(System.out::println);
+          	}
+         }
+         else {
+          	for (int i=0; i<addressBook.size(); i++) {
+          		System.out.println("Address Book"  +i);
+         		List sortZip = addressBook.get(i).stream().sorted(Comparator.comparingInt(contactBook::getZip)).collect(Collectors.toList());
+         		sortZip.forEach(System.out::println);
+          	}
+         }
     }
     
 	public static void main(String[] args) {
@@ -192,7 +222,7 @@ public class AddressBookRunner {
 		int flag=0;
 		while (flag==0) {
 			System.out.println("Choose an option: ");
-			System.out.println("1.Add a contact 2.Edit a contact 3.Delete a contact  4.Print all contacts 5.Add Another Address Book 6.Print Address Book 7.Search By City or State 8.View persons in city or state 9.Count Person In City or State 10.Sort By Name 11.Exit: ");
+			System.out.println("1.Add a contact 2.Edit a contact 3.Delete a contact  4.Print all contacts 5.Add Another Address Book 6.Print Address Book 7.Search By City or State 8.View persons in city or state 9.Count Person In City or State 10.Sort By Name 11.Sort by City,State or ZipCode 12.Exit: ");
 			int i = sc.nextInt();
 			
 			switch(i) {
@@ -227,6 +257,9 @@ public class AddressBookRunner {
 					bookBuilder.sortByNames();
 					break;
 				case 11:
+					bookBuilder.sortByCityStateZip();
+					break;
+				case 12:
 					flag = 1;
 					break;
 			}

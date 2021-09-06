@@ -1,5 +1,7 @@
 package com.bridgelabz.addressbook;
 
+import java.util.stream.Stream;
+
 class contactBook{
 	String firstName;
 	String lastName;
@@ -81,5 +83,6 @@ class contactBook{
 		return "contactBook [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city="
 				+ city + ", state=" + state + ", zip=" + zip + ", phoneNum=" + phoneNum + "]";
 	}
+
 	
 }
