@@ -1,8 +1,10 @@
 package com.bridgelabz.addressbook;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -176,6 +178,13 @@ public class AddressBookRunner {
         }
      } 
     
+    public void sortByNames() {
+    	for (int i=0; i<addressBook.size(); i++) {
+    		List sort = addressBook.get(i).stream().sorted((o1, o2) -> o1.firstName.compareTo(o2.firstName)).collect(Collectors.toList());
+    		sort.forEach(System.out::println);
+    	}
+    }
+    
 	public static void main(String[] args) {
 		AddressBookRunner bookBuilder = new AddressBookRunner();
 		Scanner sc = new Scanner(System.in);
@@ -183,7 +192,7 @@ public class AddressBookRunner {
 		int flag=0;
 		while (flag==0) {
 			System.out.println("Choose an option: ");
-			System.out.println("1. Add a contact ; 2. Edit a contact ; 3. Delete a contact ; 4. Print all contacts 5. Add Another Address Book 6. Print Address Book 7. Search By City or State 8. View persons in city or state 9. Count Person In City or State 10. Exit: ");
+			System.out.println("1.Add a contact 2.Edit a contact 3.Delete a contact  4.Print all contacts 5.Add Another Address Book 6.Print Address Book 7.Search By City or State 8.View persons in city or state 9.Count Person In City or State 10.Sort By Name 11.Exit: ");
 			int i = sc.nextInt();
 			
 			switch(i) {
@@ -215,6 +224,9 @@ public class AddressBookRunner {
 					bookBuilder.countPersonInCityState();
 					break;
 				case 10:
+					bookBuilder.sortByNames();
+					break;
+				case 11:
 					flag = 1;
 					break;
 			}
