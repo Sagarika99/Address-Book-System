@@ -80,7 +80,7 @@ class contactBook{
 
 	@Override
 	public String toString() {
-		return "contactBook [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city="
+		return "ContactBook [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city="
 				+ city + ", state=" + state + ", zip=" + zip + ", phoneNum=" + phoneNum + "]";
 	}
 

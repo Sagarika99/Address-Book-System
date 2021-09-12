@@ -1,5 +1,9 @@
 package com.bridgelabz.addressbook;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -17,7 +21,8 @@ public class AddressBookRunner {
 	public ArrayList<ArrayList<contactBook>> addressBook = new ArrayList<ArrayList<contactBook>>();
 	public HashMap<String, String> personInCity = new HashMap<String, String>();
 	public HashMap<String, String> personInState = new HashMap<String, String>();
-
+	public static String ADDRESSBOOK_FILENAME = "AddressBook.txt";
+	
 	public void addAddressBook() {
 		addressBook.add(contactDetails = new ArrayList<contactBook>());
 	}
@@ -215,14 +220,40 @@ public class AddressBookRunner {
          }
     }
     
-	public static void main(String[] args) {
+    public void writeData() throws IOException {
+    	StringBuffer empBuffer = new StringBuffer();
+    	addressBook.stream().forEach(contact -> {
+    		for (contactBook n : contact) {
+	    		String contactString  = n.toString().concat("\n");
+	    		empBuffer.append(contactString);
+    		}
+    	});
+    	try {
+    		Files.write(Paths.get(ADDRESSBOOK_FILENAME), empBuffer.toString().getBytes());
+    	}
+    	catch(IOException e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    public void readData() {
+    	try {
+    		Files.lines(new File("AddressBook.txt").toPath()).forEach(System.out::println);
+    	}
+    	catch(IOException e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    
+	public static void main(String[] args) throws IOException {
 		AddressBookRunner bookBuilder = new AddressBookRunner();
 		Scanner sc = new Scanner(System.in);
 		bookBuilder.addAddressBook();
 		int flag=0;
 		while (flag==0) {
 			System.out.println("Choose an option: ");
-			System.out.println("1.Add a contact 2.Edit a contact 3.Delete a contact  4.Print all contacts 5.Add Another Address Book 6.Print Address Book 7.Search By City or State 8.View persons in city or state 9.Count Person In City or State 10.Sort By Name 11.Sort by City,State or ZipCode 12.Exit: ");
+			System.out.println("1.Add a contact 2.Edit a contact 3.Delete a contact  4.Print all contacts 5.Add Another Address Book 6.Print Address Book 7.Search By City or State 8.View persons in city or state 9.Count Person In City or State 10.Sort By Name 11.Sort by City,State or ZipCode 12.Write to File 13.Read from File 14.Exit: ");
 			int i = sc.nextInt();
 			
 			switch(i) {
@@ -260,6 +291,12 @@ public class AddressBookRunner {
 					bookBuilder.sortByCityStateZip();
 					break;
 				case 12:
+					bookBuilder.writeData();
+					break;
+				case 13:
+					bookBuilder.readData();
+					break;
+				case 14:
 					flag = 1;
 					break;
 			}
